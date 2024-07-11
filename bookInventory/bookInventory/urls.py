@@ -20,10 +20,10 @@ from api.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', book_list, name="list"),
+    path('api/', BookView.as_view(), name="list"),
     path('api/<int:id>/',book_single_view, name="single"),
-    path('api/post/', book_post, name='post'),
-    path('api/update/<int:id>', book_update, name='update'),
-    path('api/delete/<int:id>', book_delete, name='delete'),
+    path('api/post/', BookView.as_view(), name='post'),
+    path('api/update/<int:id>', BookView.as_view(), name='update'),
+    path('api/delete/<int:id>', BookView.as_view(), name='delete'),
 
 ]
