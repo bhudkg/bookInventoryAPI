@@ -17,7 +17,6 @@ def book_single_view(request, id):
     serializer = BookSerializer(query)
     return Response(serializer.data)
 
-
 @api_view(['POST'])
 def book_post(request):
     serializer  = BookSerializer(data=request.data)
