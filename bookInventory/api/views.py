@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view, APIView
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 # Create your views here.
 # @api_view(['GET'])
@@ -16,6 +18,13 @@ def book_single_view(request, id):
     query = Book.objects.get(id=id)
     serializer = BookSerializer(query)
     return Response(serializer.data)
+
+
+@api_view(["POST"])
+def logout(request):
+    if request.method == "POST":
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 # @api_view(['POST'])
 # def book_post(request):
@@ -42,6 +51,8 @@ def book_single_view(request, id):
 
 
 class BookView(APIView):
+    permission_classes = [IsAuthenticated]
+    
 
     def get(self, request):
         query = Book.objects.all()
